@@ -1,13 +1,10 @@
-# NOTE: This is a common file that is overwritten by realm/ci-actions sync service
-# and should only be modified in that repository.
-
-name: 'Auto Assign'
-on:
-  pull_request:
-    types: [opened]
-
 jobs:
   add-assignee:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - uses: kentaro-m/auto-assign-action@248761c4feb3917c1b0444e33fad1a50093b9847
+    - continue-on-error: true
+      uses: kentaro-m/auto-assign-action@248761c4feb3917c1b0444e33fad1a50093b9847
+name: Auto Assign
+on:
+  repository_dispatch:
+    types: trigger-ga___auto-assign.yml

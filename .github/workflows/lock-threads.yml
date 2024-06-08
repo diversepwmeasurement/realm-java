@@ -1,24 +1,20 @@
-name: 'Lock Threads'
-
-on:
-  schedule:
-    - cron: '0 * * * *'
-  workflow_dispatch:
-
-permissions:
-  issues: write
-  pull-requests: write
-  discussions: write
-
 concurrency:
   group: lock-threads
-
 jobs:
   action:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - uses: dessant/lock-threads@v5
-        with:
-          issue-inactive-days: 30
-          pr-inactive-days: 30
-          log-output: true
+    - continue-on-error: true
+      uses: dessant/lock-threads@v5
+      with:
+        issue-inactive-days: 30
+        log-output: true
+        pr-inactive-days: 30
+name: Lock Threads
+on:
+  repository_dispatch:
+    types: trigger-ga___lock-threads.yml
+permissions:
+  discussions: write
+  issues: write
+  pull-requests: write
